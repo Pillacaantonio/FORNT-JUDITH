@@ -1,0 +1,113 @@
+<div
+  class="m-0  font-sans text-base antialiased font-normal leading-default bg-gray-50   text-slate-500   transition-colors duration-300">
+
+  <!-- Sidebar -->
+  <aside
+    #sidebarRef
+    class="   antialiased bg-white block border-0 duration-200 ease-nav-brand fixed flex-wrap inset-y-0 items-center justify-between max-w-62.5 ml-4 my-4 overflow-y-auto p-0 rounded-2xl   transition-transform w-full lg:bg-gray-50 lg:left-0 lg:translate-x-0 z-990"
+    [ngClass]="{
+  '-translate-x-0 shadow' : siderBarOpen(),
+  '-translate-x-[274px] shadow-none' : !siderBarOpen()}">
+
+    <!-- Logo Section -->
+    <div class="h-19.5 flex items-center justify-between overflow-visible relative">
+
+      <div class="relative w-full h-20">
+        <img ngSrc="https://tse3.mm.bing.net/th/id/OIP.wKzHkK8_gB_77UTrJkVhjAHaHa?pid=Api&P=0&h=180"
+             alt="main_logo"
+             priority
+             fill/>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div
+      class="h-px mx-4 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40  to-transparent"></div>
+
+    <!-- Navigation Menu -->
+    <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+      <ul class="flex flex-col pl-0 mb-0 w-full absolute z-10">
+
+        @for (section of menuSections(); track $index) {
+          <!-- Section Title (if exists) -->
+          @if (section.title && !isCollapsed()) {
+            <li class="w-full mt-4">
+              <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60  ">
+                {{ section.title }}
+              </h6>
+            </li>
+          }
+
+          @for (item of section.items; track item.label) {
+            <li class="mt-0.5 w-full">
+              <a
+                [class]="getMenuItemClasses(item)"
+                (click)="onMenuItemClick(item)"
+                [routerLink]="item.route"
+                [attr.aria-label]="item.label"
+                [attr.title]="isCollapsed() ? item.label : null"
+                role="menuitem">
+                <div [class]="getIconContainerClasses(item)">
+                  <i [class]="item.icon + ' text-lg'"></i>
+                </div>
+                <div class="flex items-center justify-between flex-1 min-w-0">
+                  <span [class]="getTextClasses(item)">{{ item.label }}</span>
+                </div>
+              </a>
+            </li>
+          }
+        }
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main
+    class="duration-200 ease-soft-in-out flex flex-col h-screen max-h-screen relative rounded-xl transition-all"
+    [ngClass]="{
+  'ml-0' : siderBarOpen(),
+  'lg:ml-68.5' : !siderBarOpen()
+  }"
+  >
+    <!-- Navbar -->
+    <nav
+      class="md:mt-5 relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start"
+      role="navigation">
+      <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+        <nav class="flex gap-2 justify-center items-center mt-2">
+          <button (click)="toggleSidebar()"
+                  data-sidebar-toggle
+                  class=" lg:hidden text-indigo-600 bg-indigo-200 rounded-full flex justify-center items-center w-7 h-7">
+            <i
+              class="ri-menu-unfold-3-line text-xl bold ml-0.5"></i></button>
+          <h6
+            class="mb-0 font-semibold capitalize text-slate-700  ">
+            {{ currentActiveMenuItem()?.label }}
+          </h6>
+        </nav>
+
+        <div class="flex items-center mt-2 justify-end">
+          <ul class="flex flex-row gap-2 justify-end pl-0 mb-0 list-none ">
+            <!-- Theme Toggle -->
+            <li class="flex items-center font-medium">
+              <i class="ri-user-line sm:mr-1"></i>
+              <!-- <span class=" inline">{{ sharedService.CurrentUser().sNombre }}</span> -->
+            </li>
+
+            <li class="flex items-center font-medium cursor-pointer" (click)="authService.logOut()">
+              <i class="ri-logout-box-r-line sm:mr-1"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="w-full px-6 py-6 mx-auto flex-1 overflow-y-auto">
+      <div [@routeAnimations]="getAnimationState()" class="relative">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+</div>
