@@ -43,13 +43,13 @@ export class SidebarService {
           id: 'panel',
           label: 'Panel',
           icon: 'ri-dashboard-line',
-          route: '/docente/panel'
+          route: '/main/panel'
         },
         {
           id: 'listado',
           label: 'listado',
           icon: 'ri-bar-chart-horizontal-line',
-          route: '/dashboard/listado'
+          route: '/main/listado'
         },
         {
           id: 'ranking',

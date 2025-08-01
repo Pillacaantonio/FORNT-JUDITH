@@ -2,7 +2,7 @@ import { Routes } from "@angular/router"
 export const DashboadRoutes: Routes = [
     {
         path: 'panel',
-        loadComponent: () => import('./listado/listado.component'),
+        loadComponent: () => import('./panel/panel.component'),
     },
     {
         path: 'listado',
@@ -10,7 +10,7 @@ export const DashboadRoutes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'dasboad',
+        redirectTo: 'panel',
         pathMatch: 'full',
     },
 ]
