@@ -8,6 +8,10 @@ export const DashboadRoutes: Routes = [
         path: 'listado',
         loadComponent: () => import('./listado/listado.component')
     },
+     {
+        path: 'cotizacion',
+        loadComponent: () => import('./cotizacion/cotizacion.component')
+    },
     {
         path: '**',
         redirectTo: 'panel',

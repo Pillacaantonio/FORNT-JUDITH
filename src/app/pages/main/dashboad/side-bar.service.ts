@@ -52,34 +52,34 @@ export class SidebarService {
           route: '/main/listado'
         },
         {
-          id: 'ranking',
-          label: 'Ranking',
+          id: 'cotizacion',
+          label: 'cotizacion',
           icon: 'ri-bar-chart-box-ai-line',
-          route: '/cotizacion/ranking'
+          route: '/main/cotizacion'
         },
-        {
-          id: 'avance',
-          label: 'Avance',
-          icon: 'ri-line-chart-line',
-          route: '/docente/avance'
-        }
+        // {
+        //   id: 'avance',
+        //   label: 'Avance',
+        //   icon: 'ri-line-chart-line',
+        //   route: '/docente/avance'
+        // }
       ]
     },
     {
-      title: 'ADMINISTRACIÓN',
+      //title: 'ADMINISTRACIÓN',
       items: [
-        {
-          id: 'alumnos',
-          label: 'Alumnos',
-          icon: 'ri-group-3-line',
-          route: '/docente/alumnos'
-        },
-        {
-          id: 'lecturas',
-          label: 'Lecturas',
-          icon: 'ri-file-copy-2-line',
-          route: '/docente/lecturas'
-        }
+        // {
+        //   id: 'alumnos',
+        //   label: 'Alumnos',
+        //   icon: 'ri-group-3-line',
+        //   route: '/docente/alumnos'
+        // },
+        // {
+        //   id: 'lecturas',
+        //   label: 'Lecturas',
+        //   icon: 'ri-file-copy-2-line',
+        //   route: '/docente/lecturas'
+        // }
       ]
     }
   ]);

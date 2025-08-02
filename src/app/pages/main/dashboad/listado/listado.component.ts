@@ -8,7 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
  import { ListadoService } from '../../../../services/cotizacion/listado.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { Button } from "primeng/button"; 
- 
+ import { TreeTableModule } from 'primeng/treetable';
+
 @Component({
   selector: 'app-listado',
   standalone: true,
@@ -21,7 +22,8 @@ import { Button } from "primeng/button";
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    Button
+    Button,
+    TreeTableModule
 ],
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.css']

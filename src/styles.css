@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@plugin "tailwindcss-primeui";
+
 
 .shadow-soft-xl {
   --tw-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);

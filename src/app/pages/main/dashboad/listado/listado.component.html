@@ -1,21 +1,22 @@
 <div class="mb-4">
-    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
-    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
-    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text></p-button>
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text></p-button>
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text></p-button>
 </div>
 
-<p-table
-    [value]="cotizaciones"
-    [paginator]="true"
-    [rows]="5"
+<p-table 
+    [value]="cotizaciones" 
+    [paginator]="true" 
+    [rows]="5" 
     [first]="first"
-    [showCurrentPageReport]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true" 
+    [currentPageReportTemplate]="'Showing {first} to {last} of {totalRecords} entries'"
     (onPage)="pageChange($event)"
     [rowsPerPageOptions]="[10, 25, 50]"
->
-    <ng-template #header>
+    [style]="{ 'min-width': '50rem' }">
+
+    <!-- Encabezado de la tabla -->
+    <ng-template pTemplate="header">
         <tr>
             <th style="width:25%">Código Cotización</th>
             <th style="width:25%">Nombre Cliente</th>
@@ -24,7 +25,8 @@
         </tr>
     </ng-template>
 
-    <ng-template #body let-cotizacion>
+    <!-- Cuerpo de la tabla -->
+    <ng-template pTemplate="body" let-cotizacion>
         <tr>
             <td>{{ cotizacion.icod_cotizacion }}</td>
             <td>{{ cotizacion.nombre_cliente }}</td>
@@ -33,11 +35,13 @@
         </tr>
     </ng-template>
 
-    <ng-template #paginatorleft>
-        <p-button type="button" icon="pi pi-plus" text />
+    <!-- Botones del paginador -->
+    <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" text></p-button>
     </ng-template>
 
-    <ng-template #paginatorright>
-        <p-button type="button" icon="pi pi-cloud" text />
+    <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" text></p-button>
     </ng-template>
+
 </p-table>
