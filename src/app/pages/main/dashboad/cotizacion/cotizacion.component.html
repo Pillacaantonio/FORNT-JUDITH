@@ -1,1 +1,316 @@
- 
+<div class="min-h-screen bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Información de la Cotización -->
+    <div class="bg-white rounded-xl shadow p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4">Datos del Cliente</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">
+            Número de Cotización
+          </label>
+          <input class="w-full border rounded-lg px-3 py-2" type="text" [(ngModel)]="correlativo" readonly />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Fecha</label>
+          <input class="w-full border rounded-lg px-3 py-2" [(ngModel)]="quotationDate" readonly />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Nombre del Cliente</label>
+          <select class="w-full border rounded-lg px-3 py-2 bg-white" [(ngModel)]="clienteSeleccionado"
+            (change)="onClienteSeleccionado()">
+            <option value="" disabled selected>Selecciona un cliente</option>
+            <option *ngFor="let cliente of clientes" [ngValue]="cliente">
+              {{ cliente.cliec_vnombre_cliente }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">DNI</label>
+          <input class="w-full border rounded-lg px-3 py-2" type="text"
+            [value]="clienteSeleccionado?.cliec_vnumero_doc_cli" readonly />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1"> RUC </label>
+          <input class="w-full border rounded-lg px-3 py-2" type="cliec_cruc" [value]="clienteSeleccionado?.cliec_cruc"
+            readonly />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1"> Atención </label>
+          <input class="w-full border rounded-lg px-3 py-2" type="cliec_vnombre_contacto"
+            [value]="clienteSeleccionado?.cliec_vnombre_contacto" readonly />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Vendedor</label>
+          <select class="w-full border rounded-lg px-3 py-2 bg-white" [(ngModel)]="vendedorSeleccionado">
+            <option [ngValue]="null" disabled selected>
+              Selecciona un Vendedor
+            </option>
+            <option *ngFor="let vendedores of vendedores" [ngValue]="vendedores">
+              {{ vendedores.vdrsc_vnombre_vendedor }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1"> Observación </label>
+          <input class="w-full border rounded-lg px-3 py-2" type="cliec_observacion1" />
+        </div>
+        <div class="mt-4">
+          <label class="block text-sm font-medium mb-1">Lugar de Entrega</label>
+          <select class="w-full border rounded-lg px-3 py-2 bg-white" [(ngModel)]="destinos">
+            <option value="" disabled selected>Selecciona un lugar</option>
+            <option *ngFor="let destinos of destinos" [ngValue]="destinos">
+              {{ destinos.clied_vdireccion_dest }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-sm font-medium mb-1">Logo</label>
+          <select class="w-full border rounded-lg px-3 py-2 bg-white" [(ngModel)]="deliveryAddress">
+            <option [ngValue]="null" disabled selected>
+              Selecciona un logo
+            </option>
+            <option *ngFor="let logo of deliveryOptions" [ngValue]="logo">
+              {{ logo.log_nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-10">
+      <!-- Tabla de Productos Disponibles -->
+      <div class="bg-white rounded-xxl shadow p-6">
+        <h2 class="text-xl font-semibold mb-4">Productos Disponibles</h2>
+        <div class="overflow-x-auto border rounded-md">
+          <table class="min-w-full text-sm table-fixed">
+            <thead class="bg-gray-100 text-gray-700">
+              <tr>
+                <th class="px-3 py-2 text-left">Acción</th>
+                <th class="px-3 py-2 text-left">Código</th>
+                <th class="px-3 py-2 text-left">Producto</th>
+                <th class="px-3 py-2 text-left">Catálogo</th>
+                <th class="px-3 py-2 text-left">P.A.2</th>
+                <th class="px-3 py-2 text-right">F.F.</th>
+                <th class="px-3 py-2 text-right">Envase</th>
+                <th class="px-3 py-2 text-right">Laboratorio</th>
+                <th class="px-3 py-2 text-right">U. Medida</th>
+                <th class="px-3 py-2 text-right">p. Interno</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productoTerminado" [ngClass]="{
+                  'bg-green-50': isProductSelected(product.prdc_icod_producto)
+                }" class="border-t">
+                <td class="px-3 py-2">
+                  <button
+                    class="text-sm w-full py-1.5 px-3 rounded-md font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+                    (click)="addProduct(product)" [disabled]="isProductSelected(product.prdc_icod_producto)">
+                    {{
+                    isProductSelected(product.prdc_icod_producto)
+                    ? "Agregado"
+                    : "Agregar"
+                    }}
+                  </button>
+                </td>
+                <td class="px-3 py-2">
+                  <div class="font-medium">{{ product.prodc_vsku }}</div>
+                </td>
+                <td class="px-3 py-2">
+                  <div class="font-medium">{{ product.prodc_nom_lab }}</div>
+                  <div class="text-gray-500 text-xs">
+                    {{ product.prdc_vdescripcion_larga }}
+                  </div>
+                </td>
+
+                <td class="px-3 py-2">
+                  <span class="text-xs font-medium border rounded-full px-2 py-0.5">{{ product.desCate }}</span>
+                </td>
+
+                <td class="px-3 py-2">
+                  <div class="font-medium">{{ product.prodc_p_a }}</div>
+                </td>
+                <td class="px-3 py-2">
+                  <div class="font-medium">{{ product.formaFar }}</div>
+                </td>
+                <td class="px-3 py-2">
+                  <div class="font-medium">
+                    {{ product.prodc_env_asociado }}
+                  </div>
+                </td>
+                <td class="px-3 py-2">
+                  <div class="font-medium">{{ product.prodc_nom_lab }}</div>
+                </td>
+                <td class="px-3 py-2">
+                  <div class="font-medium">
+                    {{ product.prodc_desc_tipo_unidad_medida }}
+                  </div>
+                </td>
+
+                <td class="px-3 py-2 text-right">
+                  S/{{ product.prod_nprecio_venta_publico.toFixed(2) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Productos Seleccionados -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-xl font-semibold mb-4 flex justify-between">
+          Productos Seleccionados
+          <span *ngIf="getTotalItems() > 0"
+            class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+            {{ getTotalItems() }} {{ getTotalItems() === 1 ? "item" : "items" }}
+          </span>
+        </h2>
+
+        <div *ngIf="selectedProducts.length === 0" class="text-center text-gray-500 py-12">
+          <p class="text-lg font-medium">No hay productos seleccionados</p>
+          <p class="text-sm">Agrega productos de la tabla de la izquierda</p>
+        </div>
+
+        <div *ngIf="selectedProducts.length > 0">
+          <!-- Resumen -->
+          <div class="bg-blue-50 p-4 rounded-lg mb-4 text-sm space-y-1">
+            <div class="flex justify-between">
+              <span class="font-medium">Cotización:</span><span>{{ NroCotizacion }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Cliente:</span>
+              <span>{{ clientName || "Sin especificar" }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Fecha:</span><span>{{ quotationDate }} </span>
+            </div>
+            <div *ngIf="deliveryAddress">
+              <span class="font-medium">Entrega:</span>
+              <p class="text-gray-600 text-xs mt-1">{{ deliveryAddress }}</p>
+            </div>
+          </div>
+
+          <!-- Tabla seleccionados -->
+          <div class="overflow-x-auto border rounded-md mb-4">
+            <table class="min-w-full text-sm">
+              <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                  <th class="px-3 py-2 text-left">Producto</th>
+                  <th class="px-3 py-2 text-center">Cantidad</th>
+                  <th class="px-3 py-2 text-right">Precio</th>
+                  <th class="px-3 py-2 text-right">Subtotal</th>
+                  <th class="px-3 py-2 text-center">Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of selectedProducts" class="border-t">
+                  <!-- Producto -->
+                  <td class="px-3 py-2">
+                    <div class="font-medium">{{ p.prdc_vdescripcion_larga }}</div>
+                    <div class="text-xs text-gray-500">{{ p.desCate }}</div>
+                  </td>
+
+                  <!-- Cantidad -->
+                  <td class="px-3 py-2 text-center">
+                    <div class="flex items-center justify-center gap-1">
+                      <button class="w-6 h-6 border rounded hover:bg-gray-100" (click)="
+                          updateQuantity(p.prdc_icod_producto, p.quantity - 1)
+                        ">
+                        -
+                      </button>
+                      <span class="w-6 text-center">{{ p.quantity }}</span>
+                      <button class="w-6 h-6 border rounded hover:bg-gray-100" (click)="
+                          updateQuantity(p.prdc_icod_producto, p.quantity + 1)
+                        ">
+                        +
+                      </button>
+                    </div>
+                  </td>
+
+                  <!-- Precio -->
+                  <td class="px-3 py-2 text-right">
+                    S/{{ p.prod_nprecio_venta_publico.toFixed(2) }}
+                  </td>
+
+                  <!-- Subtotal -->
+                  <td class="px-3 py-2 text-right font-semibold">
+                    S/{{
+                    (p.prod_nprecio_venta_publico * p.quantity).toFixed(2)
+                    }}
+                  </td>
+
+                  <!-- Eliminar -->
+                  <td class="px-3 py-2 text-center">
+                    <button class="text-red-500 hover:text-red-100" (click)="removeProduct(p.prdc_icod_producto)">
+                      🗑️
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Totales -->
+          <div class="space-y-1 text-sm mb-4">
+            <div class="flex justify-between">
+              <span>Subtotal:</span><span>${{ getTotalPrice().toFixed(2) }}</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <span class="mr-2">Descuento (%):</span>
+                <input type="number" [(ngModel)]="descuento" (input)="onDescuentoChange()" min="0" max="100" step="0.01"
+                  class="border rounded-lg px-3 py-1 mr-2" placeholder="%" style="width: 80px;" />
+              </div>
+              <!-- Monto del descuento -->
+              <span>S/{{ descuentoAmount.toFixed(2) }}</span>
+            </div>
+            <div class="flex flex-col md:flex-row md:items-center w-full md:justify-between gap-2">
+
+               <div class="flex flex-col md:flex-row md:items-center w-full md:w-auto">
+                <label class="text-sm font-medium mb-1 md:mb-0 md:mr-2">Tipo de Pago</label>
+                <select class="border rounded-lg px-3 py-1 bg-white w-full md:w-48" [(ngModel)]="deliveryAddress">
+                  <option [ngValue]="null" disabled selected>
+                    Selecciona el Tipo de Pago
+                  </option>
+                  <option *ngFor="let TipoPago of TipoPago" [ngValue]="TipoPago">
+                    {{ TipoPago.tarec_vdescripcion }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Input Monto -->
+              <div class="w-full md:w-auto">
+                <input type="number" [(ngModel)]="monto" (input)="onMontoPagado()" placeholder="Monto"
+                  class="border rounded-lg px-3 py-1 w-full md:w-28" />
+              </div>
+
+
+            </div>
+
+
+            <hr />
+            <div class="flex justify-between text-lg font-bold">
+              <span>Total:</span>
+              <span class="text-green-600">S/{{ totalFinal | number:'1.2-2' }}</span>
+
+            </div>
+
+
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>{{ getTipoDiferencia() }}:</span>
+              <span>S/{{ getMontoDiferencia() | number:'1.2-2' }}</span>
+            </div>
+
+
+
+
+            <button class="w-full bg-green-600 text-white text-lg py-2 rounded-lg hover:bg-green-700"
+              (click)="generarCotizacion()">
+              Generar Venta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

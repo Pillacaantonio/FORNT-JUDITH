@@ -6,7 +6,5 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-bootstrapApplication(AppComponent,{
-  providers: [provideRouter(routes), provideHttpClient(),BrowserAnimationsModule], 
-} )
+bootstrapApplication(AppComponent,appConfig )
   .catch((err) => console.error(err));

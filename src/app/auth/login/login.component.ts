@@ -15,7 +15,8 @@ export default class LoginComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   authService = inject(AuthService);
-
+showPassword = false;
+logoUrl: any;
   constructor() {
     this.loginForm = this.fb.group({
       email: [

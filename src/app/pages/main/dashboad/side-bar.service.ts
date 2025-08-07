@@ -47,7 +47,7 @@ export class SidebarService {
         },
         {
           id: 'listado',
-          label: 'listado',
+          label: 'listado de Cotizaciones',
           icon: 'ri-bar-chart-horizontal-line',
           route: '/main/listado'
         },

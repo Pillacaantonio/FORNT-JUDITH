@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Asegúrate de importar HttpClient correctamente
+import { HttpClient } from '@angular/common/http';  
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { UsuarioData } from '../../models/usuario_data';
 import { BaseResponse } from '../../interfaces/common/base_response';

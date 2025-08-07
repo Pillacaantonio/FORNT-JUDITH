@@ -1,0 +1,26 @@
+ table {
+  table-layout: auto; 
+  width: 100%;  
+  border-collapse: collapse; 
+}
+
+  
+
+ th, td {
+  min-width: 120px; 
+}
+
+ td {
+  white-space: normal;  
+}
+ td, th {
+  white-space: nowrap; 
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  text-align: center; 
+  
+}
+
+ th, td {
+  min-width: 120px;  
+}

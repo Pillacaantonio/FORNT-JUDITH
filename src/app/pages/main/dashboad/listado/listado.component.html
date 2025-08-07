@@ -1,47 +1,66 @@
-<div class="mb-4">
-    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text></p-button>
-    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text></p-button>
-    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text></p-button>
-</div>
-
-<p-table 
-    [value]="cotizaciones" 
-    [paginator]="true" 
-    [rows]="5" 
-    [first]="first"
-    [showCurrentPageReport]="true" 
-    [currentPageReportTemplate]="'Showing {first} to {last} of {totalRecords} entries'"
-    (onPage)="pageChange($event)"
+<p-table
+    #dt
+    [value]="cotizaciones"
+    dataKey="icod_cotizacion"
+    [rows]="10"
     [rowsPerPageOptions]="[10, 25, 50]"
-    [style]="{ 'min-width': '50rem' }">
+    [paginator]="true"
+    [globalFilterFields]="['icod_cotizacion', 'nombre_cliente']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+>
+    <!-- Buscador global -->
+    <ng-template #caption>
+        <div class="flex justify-end">
+            <p-iconfield iconPosition="left">
+                <p-inputicon>
+                    <i class="pi pi-search"></i>
+                </p-inputicon>
+              <input
+  #globalFilter
+  pInputText
+  type="text"
+  (input)="dt.filterGlobal(globalFilter.value, 'contains')"
+  placeholder="Buscar..."
+/>
 
-    <!-- Encabezado de la tabla -->
-    <ng-template pTemplate="header">
+            </p-iconfield>
+        </div>
+    </ng-template>
+
+    <!-- Encabezado con filtros -->
+    <ng-template #header>
         <tr>
-            <th style="width:25%">Código Cotización</th>
-            <th style="width:25%">Nombre Cliente</th>
-            <th style="width:25%">Monto Subtotal</th>
-            <th style="width:25%">Monto Total</th>
+            <th>Numero de Cotización</th>
+            <th>Nombre Cliente</th>
+            <th>Subtotal</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <th>
+                <p-columnFilter type="text" field="numero_cotizacion" placeholder="Buscar código" filterOn="input" ariaLabel="Numero de Cotización"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="nombre_cliente" placeholder="Buscar cliente" filterOn="input" ariaLabel="Nombre Cliente"></p-columnFilter>
+            </th>
+            <th></th>
+            <th></th>
         </tr>
     </ng-template>
 
     <!-- Cuerpo de la tabla -->
-    <ng-template pTemplate="body" let-cotizacion>
+    <ng-template #body let-cotizacion>
         <tr>
-            <td>{{ cotizacion.icod_cotizacion }}</td>
+            <td>{{ cotizacion.numero_cotizacion }}</td>
             <td>{{ cotizacion.nombre_cliente }}</td>
             <td>{{ cotizacion.monto_sub_total | currency }}</td>
             <td>{{ cotizacion.monto_total | currency }}</td>
         </tr>
     </ng-template>
 
-    <!-- Botones del paginador -->
-    <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" text></p-button>
+    <!-- Mensaje si no hay datos -->
+    <ng-template #emptymessage>
+        <tr>
+            <td colspan="4">No se encontraron cotizaciones.</td>
+        </tr>
     </ng-template>
-
-    <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" text></p-button>
-    </ng-template>
-
 </p-table>

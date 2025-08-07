@@ -5,25 +5,31 @@ import { CommonModule } from '@angular/common';
   import { MultiSelectModule } from 'primeng/multiselect';
 import { TagModule } from 'primeng/tag';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
- import { ListadoService } from '../../../../services/cotizacion/listado.service';
-import { DropdownModule } from 'primeng/dropdown';
-import { Button } from "primeng/button"; 
+ import { ListadoService } from '../../../../services/cotizacion/listado.service'; 
+import { Button, ButtonModule } from "primeng/button"; 
  import { TreeTableModule } from 'primeng/treetable';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+ import { SelectModule } from 'primeng/select';
+ import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-listado',
   standalone: true,
   imports: [
     CommonModule,
+    InputIconModule,
     TableModule,
     InputTextModule,
     MultiSelectModule,
+    SelectModule,
+    HttpClientModule,
     TagModule,
     FormsModule,
     ReactiveFormsModule,
-    DropdownModule,
-    Button,
-    TreeTableModule
+    ButtonModule,
+     TreeTableModule,
+    IconFieldModule,
 ],
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.css']
