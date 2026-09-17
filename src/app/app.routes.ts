@@ -1,29 +1,7 @@
 import { Routes } from '@angular/router';
-import { routesMain } from './pages/pages.routes';
-import { DashboadRoutes } from './pages/main/dashboad/dashboad.routes';
-
 export const routes: Routes = [
-    {
-        path: '',  
-        redirectTo: '/login',  
-        pathMatch: 'full',  
-    },
- 
-    {
-        path: 'login',
-        loadComponent: () =>
-            import('./auth/login/login.component').then((m) => m.default),
-    },
-    {
-    path: 'dashboad',
-    loadComponent:()=>import('./pages/main/dashboad/dashboad.component'),
-    loadChildren: () => import('./pages/main/dashboad/dashboad.routes').then(value => value.DashboadRoutes),
-  },
- 
-    
-
-    ...routesMain
-  
-
-
+  { path: '', redirectTo: '/main/inicio', pathMatch: 'full' },
+  { path: 'main', loadComponent: () => import('./pages/main/dashboad/dashboad.component'), loadChildren: () => import('./pages/main/dashboad/dashboad.routes').then(m => m.DashboadRoutes) },
+  { path: 'login', loadComponent: () => import('./auth/login/login.component').then(m => m.default) },
+  { path: '**', redirectTo: '/main/inicio' },
 ];

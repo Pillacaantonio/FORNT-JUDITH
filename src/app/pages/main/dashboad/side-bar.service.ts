@@ -1,4 +1,4 @@
-import {Injectable, signal, computed, effect} from '@angular/core';
+import {Injectable, signal, computed} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 import {filter} from 'rxjs/operators';
 
@@ -28,7 +28,7 @@ export interface SidebarConfig {
 export class SidebarService {
 
   // Signals para el estado del sidebar
-  private readonly _activeMenuItem = signal<string>('dashboard');
+  private readonly _activeMenuItem = signal<string>('panel');
   private readonly _sidebarConfig = signal<SidebarConfig>({
     theme: 'light',
     isCollapsed: false,
@@ -39,30 +39,21 @@ export class SidebarService {
   private readonly _menuSections = signal<MenuSection[]>([
     {
       items: [
-        {
-          id: 'panel',
-          label: 'Panel',
-          icon: 'ri-dashboard-line',
-          route: '/main/panel'
-        },
-        {
-          id: 'listado',
-          label: 'listado de Cotizaciones',
-          icon: 'ri-bar-chart-horizontal-line',
-          route: '/main/listado'
-        },
-        {
-          id: 'cotizacion',
-          label: 'cotizacion',
-          icon: 'ri-bar-chart-box-ai-line',
-          route: '/main/cotizacion'
-        },
-        // {
-        //   id: 'avance',
-        //   label: 'Avance',
-        //   icon: 'ri-line-chart-line',
-        //   route: '/docente/avance'
-        // }
+         {
+           id: 'panel',
+           label: 'inicio',
+           icon: 'ri-dashboard-line',
+           route: '/main/panel'
+         },
+         {
+           id: 'cotizacion',
+           label: 'cotizaciones',
+           icon: 'ri-whatsapp-line',
+           route: '/main/cotizacion'
+         },
+     
+        
+      
       ]
     },
     {
@@ -138,8 +129,8 @@ export class SidebarService {
 
   getMenuItemClasses(item: MenuItem): string {
     const baseClasses = 'py-2.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer';
-    const activeClasses = 'shadow-soft-xl bg-white font-semibold text-slate-700 rounded-lg';
-    const inactiveClasses = 'hover:bg-gray-100 hover:rounded-lg';
+    const activeClasses = 'shadow-soft-xl bg-white font-semibold text-[#d94d91] rounded-2xl';
+    const inactiveClasses = 'hover:bg-[#fff1f7] hover:rounded-2xl';
     const isActive = this.isMenuItemActive(item.id);
 
     return isActive
@@ -149,8 +140,8 @@ export class SidebarService {
 
   getIconContainerClasses(item: MenuItem): string {
     const baseClasses = 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5 transition-all duration-300';
-    const activeClasses = 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white';
-    const inactiveClasses = 'bg-white text-slate-700';
+    const activeClasses = 'bg-gradient-to-tl from-[#d94d91] to-[#f09ac3] text-white';
+    const inactiveClasses = 'bg-white text-[#c14f86]';
     const isActive = this.isMenuItemActive(item.id);
 
     return isActive

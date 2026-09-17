@@ -1,3 +1,4 @@
 export const environment = {
-    base_url: 'https://judithlabbackend.somee.com/api'
+    base_url: 'https://apiformulariocpia.cpia.pe/api',
+    whatsappNumber: '51932603939'
 };
